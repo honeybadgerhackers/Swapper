@@ -1,4 +1,5 @@
 <img src="https://i.imgur.com/HyT4LZP.png" alt="Drawing" width="400" height="400"/>
+
 # Swappr
 ##### *Item trading made easy*
 ## Deployed Site
@@ -17,6 +18,10 @@ __Trade Items:__ If someone has approved of the same offer then you’ll get a m
         <p><a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/honeybadgerhackers/Swappr/master/docs/swappr-wireframe.pdf">View PDF</a>.</p>
     </embed>
 </object>
+
+
+## Database Schema
+<img src="https://i.imgur.com/0u8AqVo.png" alt="Database Schema" width="600" height="400"/>
 
 
 ## Project Set-up
@@ -46,6 +51,8 @@ After the database is initialized, you can `npm start` from the root of the dire
  - [PostgreSQL](https://www.postgresql.org) – Database that Swappr uses
  - [DigitalOcean](https://www.digitalocean.com/) - Where Swappr is deployed currently
  - [Auth0](https://auth0.com/) - Authentication Service
+ 
+ <img src="https://i.imgur.com/vfzda0W.png" alt="Tech Stack" width="600" height="400"/>
 
 ## FAQ
 ### Do I need to sign up for an account?
