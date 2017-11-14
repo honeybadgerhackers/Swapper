@@ -1,13 +1,11 @@
 <template>
   <div id='app'>
-    <div class="container">
-      <router-view 
-        :userId="userId"
-        :auth="auth" 
-        :authenticated="authenticated"
-        :categories="categories">
-      </router-view>
-    </div>
+    <router-view 
+      :userId="userId"
+      :auth="auth" 
+      :authenticated="authenticated"
+      :categories="categories">
+    </router-view>
   </div>
 </template>
 
@@ -54,12 +52,14 @@ export default {
 .btn-margin {
   margin-top: 7px
 }
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 0px;
 }
+
 </style>

@@ -1,64 +1,83 @@
   <template>
-  <div class="container main-container">
-      <nav class="navbar">
-        <h3 class="logo">Swappr</h3>
-        <button class="btn btn-info ml-auto pending-btn" @click="tradeView">Pending Trades</button>
-        <pending-trades ref="pendingTrades" v-bind="$props" :tradeOffers='tradeOffers'></pending-trades>
-        <div style="width: 7em;">
-          <button class="btn btn-primary btn-block" @click="profilePage">Profile Page</button>
-        </div>
-      </nav>
-      <b-modal ref="itemModal">
-        <div slot="modal-header" class="w-100">
-          <button class="close float-right" @click="hide">&times;</button>
-          <h4 class="modal-title float-left">Your Stash</h4>
-        </div>
-        <b-form @submit="acceptTradeItem">
-        <div class="container-fluid item-offers">
-            <div v-for="(item,index) in profileItems" :key='index' class="card m-1 w-100" style="border-style: outset; height: 5rem;">
-              <h5 class="card-title text-left m-1">{{item.name}}</h5>
-              <div class="row">
-                <div class="col">
-                  <p class="text-left ml-1" style="height: 3rem; overflow: hidden;">{{item.description}}
-                  </p>
-                </div>
-                <div class="col-3 mr-2">
-                  <b-form-checkbox v-model="offeredItems" :id="`${item.id}`" :value="item.id">Offer?</b-form-checkbox>
-                </div>
-              </div>
-            </div>          
-        </div>
-          <div slot="modal-footer" class="w-100">
-            <b-btn class="float-left" variant="primary" @click="hide">Close</b-btn>
-            <b-button @click="acceptTradeItem" type="reset" variant="primary" class="btn btn-primary float-right">Offer Items</b-button>
+  <div>
+    <nav class="navbar">
+      <div class="nav-contents container">
+        <div class="row w-100">
+          <div class="col-5">
+            <img src="../assets/logo-white.png" class="float-left" style="width: 120px;">
           </div>
-          </b-form>
-          <div slot="modal-footer"></div>
-      </b-modal>
-      <div class="card inner-container p-2" style="background-color: #E5E7E9;">
-        <div class="container">          
-          <div class="row">
-            <div class="col order-2 my-1 order-md-1 align-self-center">
-              <button class="btn-warning btn-lg" @click="rejectTradeItem">No Thanks</button>
+          <div class="col-2">
+            <div style="width: 7em;">
+              <button class="btn btn-test btn-block float-right" @click="profilePage">Profile View</button>
             </div>
-            <div class="col-12 order-first order-md-2 col-md-5" style="min-height: 14rem;">
-              <div class="card w-100 h-100" style="max-width: 15rem; border-style: outset;">
-                <div class="card-block">
-                  <h3 class="card-title">{{currentTradeItem.name}}</h3>
-                  <p class="card-text">{{currentTradeItem.description}}</p>
-                  <img v-bind:src="categoryPic"/>
-                </div>
-              </div>
-            </div>
-            <div class="col order-3 my-1 align-self-center">
-              <button class="btn-success btn-lg" @click="show">Let's Trade!</button>
-            </div>
+          </div>
+          <div class="col-3 px-0">
+            <span class="fa-stack fa-5x has-badge ml-auto" :data-count="tradeOffers.length">
+              <button class="btn btn-test ml-auto pending-btn float-right" @click="tradeView">Pending Trades</button>
+              <pending-trades ref="pendingTrades" v-bind="$props" :tradeOffers='tradeOffers'></pending-trades>
+            </span>
+          </div>
+          <div class="col-2">
+            <button class="btn btn-test signout float-right" @click="auth.logout">Sign Out</button>
+            </button>
           </div>
         </div>
       </div>
-      <nav class="navbar">
-        <button class="btn btn-secondary btn-sm signout" @click="auth.logout">Sign Out</button>
-      </nav>
+    </nav>
+    <div class="container main-container">
+        <b-modal ref="itemModal" :class="'item-modal-view'">
+          <div slot="modal-header" class="w-100">
+            <button class="close float-right" @click="hide">&times;</button>
+            <h4 class="modal-title float-left">Your Stash</h4>
+          </div>
+          <b-form @submit="acceptTradeItem">
+          <div slot="modal-body" class="container-fluid item-offers">
+              <div v-for="(item,index) in profileItems" :key='index' class="card m-1 w-100" style="border-style: outset; height: 5rem;">
+                <h5 class="card-title text-left m-1">{{item.name}}</h5>
+                <div class="row">
+                  <div class="col">
+                    <p class="text-left ml-1" style="height: 3rem; overflow: hidden;">{{item.description}}
+                    </p>
+                  </div>
+                  <div class="col-3 mr-2">
+                    <b-form-checkbox v-model="offeredItems" :id="`${item.id}`" :value="item.id">Offer?</b-form-checkbox>
+                  </div>
+                </div>
+              </div>          
+          </div>
+            </b-form>
+            <div slot="modal-footer" class="w-100">
+              <b-btn class="float-left" variant="primary" @click="hide">Close</b-btn>
+              <b-button @click="acceptTradeItem" type="reset" variant="primary" class="btn btn-primary float-right">Offer Items</b-button>
+            </div>
+        </b-modal>
+        <div class="card inner-container p-2">
+            <div style="height: 3rem;"></div>
+            <div class="container-fluid">          
+              <div class="row">
+                <div class="col-12 pb-3" style="min-height: 14rem;">
+                  <div class="item-card card px-0 w-100 h-100" style="border-style: outset;">
+                    <div class="card-block px-0">
+                      <img v-b-popover.hover.bottom="currentTradeItem.description" :title="currentTradeItem.name" class="trade-photo rounded" v-bind:src="categoryPic"/>
+                      <h2 class="card-title">{{currentTradeItem.name}}</h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="col order-2 my-1 align-self-center">
+                  <button class="btn-warning btn-lg" @click="rejectTradeItem">No Thanks</button>
+                </div>
+                <div class="col order-3 my-1 align-self-center">
+                  <button class="btn-success btn-lg" @click="show">Let's Trade!</button>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar" style="position: absolute; bottom: 0; height: 3em;">
+      <div class="nav-contents container">
+        <h6 class="created-by pt-1">Created by HoneyBadgerHackers</h6>
+      </div>
+    </nav>
   </div>
 </template>
 
@@ -204,7 +223,7 @@ export default {
       const categoryID = this.currentTradeItem.id_category;
       const categoryPicArray = this.categories.filter(category =>
         categoryID === category.id)[0].url_img.split('cats');
-      this.categoryPic = `../static/cats/${categoryPicArray[1]}`;
+      this.categoryPic = `../static/cats${categoryPicArray[1]}`;
     },
   },
   mounted() {
@@ -226,9 +245,15 @@ h2 {
   display: inline-block;
 }
 
-.item-offers {
+.modal-body {
+  max-height: 70vh;
   overflow-y: scroll;
-  overflow-x: hidden;
+}
+
+.trade-photo {
+  width: 36.7rem;
+  height: 27rem;
+  object-fit: cover;
 }
 
 .btn {

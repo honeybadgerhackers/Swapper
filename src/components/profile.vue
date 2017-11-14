@@ -1,26 +1,47 @@
-  <template>
-  <div class="container main-container">
-      <nav class="navbar">
-        <h3 class="logo">Swappr</h3>
-        <button class="btn btn-info ml-auto pending-btn" @click="tradeView">Pending Trades</button>
-        <pending-trades ref="pendingTrades" v-bind="$props" :tradeOffers='tradeOffers'></pending-trades>
-        <div style="width: 7em;">
-          <button class="btn btn-primary btn-block" @click="mainMenu">Swap!</button>
+<template>
+  <div>
+    <nav class="navbar">
+      <div class="nav-contents container">
+        <div class="row w-100">
+          <div class="col-5">
+            <img src="../assets/logo-white.png" class="float-left" style="width: 120px;">
+          </div>
+         <div class="col-2">
+            <div style="width: 7em;">
+              <button class="btn btn-test btn-block float-right" @click="mainMenu">Swap!</button>
+            </div>
+          </div>
+          <div class="col-3 px-0">
+            <span class="fa-stack fa-5x has-badge ml-auto" :data-count="tradeOffers.length">
+              <button class="btn btn-test ml-auto pending-btn float-right" @click="tradeView">Pending Trades</button>
+              <pending-trades ref="pendingTrades" v-bind="$props" :tradeOffers='tradeOffers'></pending-trades>
+            </span>
+          </div>
+          <div class="col-2">
+            <button class="btn btn-test signout float-right" @click="auth.logout">Sign Out</button>
+            </button>
+          </div>
         </div>
-      </nav>
-        <div class="card inner-container p-2" style="min-height: 10em; background-color: #E5E7E9;">
-          <add-item v-bind="$props" v-on:new-item="newItem"></add-item>
-          <div class="card pl-3 my-1 w-100 item-box" style="background-color: #F0F3F4;">
-            <div class="container">
-              <div class="row">
-                <item-view v-for="(item,index) in profileItems" :item='item' :key='index' v-on:deleted-item="getUserItems"></item-view>
-              </div>
+      </div>
+    </nav>
+    <div class="container main-container">
+      <div class="card inner-container p-2" style="min-height: 10em;">
+        <div class="float-right" style="height: 3rem;"></div>
+        <add-item v-bind="$props" v-on:new-item="newItem"></add-item>
+        <div class="card pl-3 my-1 w-100 item-box">
+          <div class="container">
+            <div class="row">
+              <item-view v-for="(item,index) in profileItems" :item='item' :key='index' v-on:deleted-item="getUserItems"></item-view>
             </div>
           </div>
         </div>
-      <nav class="navbar">
-        <button class="btn btn-secondary btn-sm signout" @click="auth.logout">Sign Out</button>
-      </nav>
+      </div>
+    </div>
+    <nav class="navbar" style="position: absolute; bottom: 0; height: 3em;">
+      <div class="nav-contents container">
+        <h6 class="created-by pt-1">Created by HoneyBadgerHackers</h6>
+      </div>
+    </nav>
   </div>
 </template>
 
@@ -111,6 +132,10 @@ h2 {
   font-weight: normal;
 }
 
+.item-box {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
 .btn {
   margin: 1px;
 }
