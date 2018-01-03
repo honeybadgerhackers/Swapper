@@ -29,7 +29,7 @@
       <div style="text-align: left;">
         <h5>Description: {{acceptedTrade.description}}</h5>
         <h5>Please contact: {{acceptedTrade.name}}</h5>
-        <h5>At: {{acceptedTrade.email}}</h5>
+        <h5> At:<a href='/userProfile'> {{acceptedTrade.email}}</a></h5>
       </div>
     </b-modal>
   </div>
