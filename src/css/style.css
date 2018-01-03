@@ -151,4 +151,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#05bddba4', e
   width: 100%;
   border: 1px solid #F2F2F2;
 }
+ button {
+   background-color: #d16244;
 
+ }

@@ -54,7 +54,7 @@
                 <div class="panel-body">
                     <textarea placeholder="Write your comment here!" class="pb-cmnt-textarea"></textarea>
                     <form class="form-inline">
-                        <button class="btn btn-primary pull-right" type="button">Review</button>
+                        <button class="btn  pull-right" type="button">Review</button>
                     </form>
                 </div>
             </div>
