@@ -2,7 +2,7 @@
 
 import auth0 from 'auth0-js';
 import EventEmitter from 'EventEmitter';
-import { AUTH_CONFIG } from './auth0-variables';
+import AUTH_CONFIG from './auth0-variables';
 import router from './../router';
 import userService from '../services/createUser';
 
