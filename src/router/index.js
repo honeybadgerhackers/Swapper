@@ -4,6 +4,7 @@ import Callback from '@/components/Callback';
 import loginScreen from '@/components/loginScreen';
 import mainPage from '@/components/mainPage';
 import profile from '@/components/profile';
+import userProfile from '@/components/userProfile';
 import VModal from 'vue-js-modal';
 
 Vue.use(Router);
@@ -21,6 +22,11 @@ const allRoutes = new Router({
       path: '/profile',
       name: 'profile',
       component: profile,
+    },
+    {
+      path: '/userProfile',
+      name: 'userProfile',
+      component: userProfile,
     },
     {
       path: '/main',
