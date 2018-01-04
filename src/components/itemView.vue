@@ -83,5 +83,3 @@ h2 {
   display: inline-block;
 }
 </style>
-=======
->>>>>>> 1301ccb9bccf0e491d376112ff4623149efab0cb
