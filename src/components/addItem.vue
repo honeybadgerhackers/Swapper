@@ -70,16 +70,12 @@ export default {
   },
   methods: {
     upload(file) {
-      console.log(this.cloudinary)
+      console.log(this.cloudinary);
       const formData = new FormData();
       formData.append('file', file[0]);
       formData.append('upload_preset', this.cloudinary.uploadPreset);
       formData.append('tags', 'gs-vue, gs-vue-uploaded');
-      // for debugging to inspect content on formData
-      for (const pair of formData.entries()) {
-        console.log(`${pair[0]}, ${pair[1]}`, 'this is pair from formData.entries');
-      }
-      axios.post(`https://api.cloudinary.com/v1_1/legacy-swappr/image/upload`, formData)
+      axios.post('https://api.cloudinary.com/v1_1/legacy-swappr/image/upload', formData)
         .then((res) => {
           console.log(res);
           this.imageUrl = res.data.secure_url;
