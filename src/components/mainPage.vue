@@ -58,7 +58,7 @@
                 <div class="col-12 pb-3" style="min-height: 14rem;">
                   <div class="item-card card px-0 w-100 h-100" style="border-style: outset;">
                     <div class="card-block px-0">
-                      <img v-b-popover.hover.bottom="currentTradeItem.description" :title="currentTradeItem.name" class="trade-photo rounded" v-bind:src="categoryPic"/>
+                      <img v-b-popover.hover.bottom="currentTradeItem.description" :title="currentTradeItem.name" class="trade-photo rounded" v-bind:src="currentTradeItem.url_img"/>
                       <h2 class="card-title">{{currentTradeItem.name}}</h2>
                     </div>
                   </div>
@@ -139,6 +139,7 @@ export default {
       };
       axios.get('/transactions', config)
       .then(({ data: tradeItem }) => {
+        console.log(tradeItem.url_img, 'this is tradeItem in mainPage line 142');
         if (typeof tradeItem === 'string') {
           const noItemResponse = {
             name: 'Sorry!',
@@ -149,7 +150,8 @@ export default {
           this.categoryPic = '';
         } else {
           this.currentTradeItem = tradeItem;
-          if (tradeItem.url_img) {
+          console.log(this.currentTradeItem);
+          if (tradeItem.url_img !== null) {
             this.categoryPic = tradeItem.url_img;
           } else {
             this.getCategoryPic();
@@ -224,6 +226,7 @@ export default {
       const categoryPicArray = this.categories.filter(category =>
         categoryID === category.id)[0].url_img.split('cats');
       this.categoryPic = `../static/cats${categoryPicArray[1]}`;
+      console.log(this.categoryPic, 'category pic of cat');
     },
   },
   mounted() {

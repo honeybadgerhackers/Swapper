@@ -26,7 +26,7 @@
                   </div>
                   <div class="form-group">
                     <label for="descriptionArea">Image URL (optional)</label>
-                    <input v-model="imageUrl" type="text" class="form-control" id="urlArea" placeholder="image URL (optional)"></input>
+                    <input v-model="imageUrl" type="text" class="form-control" id="urlArea" placeholder="image URL (optional)"/>
                   </div>
                 </form>
             </div>
@@ -63,13 +63,27 @@ export default {
       this.$refs.addItemModal.hide();
     },
     addItem() {
+      let newImage;
+      // this is where i could take in this.imageUrl, and ensure that url_img is a cloudinary url
+      // axios.post to route setup to handle image upload, come back with image url,
+      // in my .then have the rest of this code.
+      if (this.imageUrl.length) {
+        newImage = this.imageUrl;
+      } else {
+        newImage = this.categories[this.categoryId - 1].url_img;
+      }
       if (this.name.length !== 0 && this.description.length !== 0 && this.categoryId !== null) {
+        if (this.imageUrl.length) {
+          newImage = this.imageUrl;
+        } else {
+          newImage = `static/${this.categories[this.categoryId - 1].url_img}`;
+        }
         const config = {
           name: this.name,
           description: this.description,
           id_user: this.userId,
           id_category: this.categoryId,
-          url_img: this.imageUrl.length ? this.imageUrl : null,
+          url_img: newImage,
         };
         this.hideModal();
         axios.post('/items', config)
@@ -83,6 +97,16 @@ export default {
           })
           .catch(err => console.error(err));
       }
+            // if (this.imageUrl !== null) {
+      //   // will have to include
+      //   const image = {
+      //     img: this.imageUrl,
+      //   };
+      //   axios.post('/cloud', image)
+      //   .then((photo) => {
+      //     console.log(photo);
+      //   });
+      // }
     },
     getCategories() {
       axios.get('/categories')
