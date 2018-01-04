@@ -153,5 +153,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#05bddba4', e
 }
  button {
    background-color: #d16244;
+   color: white;
+
+ }
+
+     .m-md-2 {
+
+
+    background-color: #d16244;
+    color: white;
 
  }
