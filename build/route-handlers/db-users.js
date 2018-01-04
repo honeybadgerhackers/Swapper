@@ -6,6 +6,8 @@ const app = express();
 
 const Op = Sequelize.Op;
 
+let id;
+
 app.use(express.json());
 
 app.get('/users/single', (req, res) => {
@@ -78,6 +80,16 @@ app.post('/users', (req, res) => {
     console.error(err);
     res.send(500, err);
   });
+});
+
+app.post('/giveEmail', (req, res) => {
+  id = req.body.email;
+  res.send(302);
+});
+
+app.get('/email', (req, res) => {
+  console.log('i got hit', id);
+  res.send({ id });
 });
 
 module.exports = app;

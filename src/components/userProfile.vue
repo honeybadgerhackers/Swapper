@@ -41,7 +41,7 @@
  </div>
 
    <div class="container pb-cmnt-container">
-      <b-dropdown id="ddown1" text="Rate this Swappr" class="m-md-2">
+      <b-dropdown  id="ddown1" text="Rate this Swappr" class="m-md-2">
     <b-dropdown-item>5</b-dropdown-item>
     <b-dropdown-item>4</b-dropdown-item>
     <b-dropdown-item>3</b-dropdown-item>
@@ -62,15 +62,11 @@
     </div>
 </div>
 </div>
- 
-
-            
           </div>
         </div>
       </div>
     </div>
      
-   
    
    
    
@@ -92,6 +88,7 @@ export default {
   data() {
     return {
       name: '',
+      email: '',
       description: '',
       tradeOffers: [],
       profileItems: [],
@@ -101,9 +98,21 @@ export default {
       },
     };
   },
+  created() {
+    axios.get('/email')
+        .then((email) => {
+          this.id = email.data.id;
+        })
+      .catch((err) => {
+        console.log(err, 'err');
+      });
+  },
   methods: {
     newItem({ data: newItem }) {
       this.profileItems.push(newItem);
+    },
+    test() {
+      console.log(this.traderEmail);
     },
     getUserItems() {
       const config = {
