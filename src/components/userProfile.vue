@@ -26,19 +26,34 @@
         </div>
       </div>
     </nav>
+
+
+
+
     <div class="container main-container">
       <div class="card inner-container p-2" style="min-height: 10em;">
-        <div class="float-right" style="height: 3rem;"></div>
+        <div ></div>
         <!-- <add-item v-bind="$props" v-on:new-item="newItem"></add-item> -->
-        <h1>USER NAME HERE {{id}}</h1>
+        <h1 id='swapperreviews'>USER NAME HERE {{id}}</h1>
         <div class="card pl-3 my-1 w-100 item-box">
           
           <div class="container">
-            <div class="row">
+            <div >
               
- <div>
-<h2>previous reviews will go here</h2>
- </div>
+<h3 id='swapperreviews'>Swappr Reviews</h3>
+<div  v-for="(rev,index) in reviews" :key='index'>
+            <div class='reviews'>
+            <div id='rating' >
+              Rating: 
+              {{rev.rating}}
+            </div>
+            <div id='review'>
+              {{rev.review}}
+              </div>
+              </div>
+            </div>
+   
+   
 
    <div class="container pb-cmnt-container">
       <b-dropdown  id="ddown1" text="Rate this Swappr" class="m-md-2">
