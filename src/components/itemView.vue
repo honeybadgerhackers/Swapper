@@ -1,14 +1,13 @@
-<<<<<<< HEAD
-  <template>
-    <div :class="item.id">
-      <div class="item-card card col-12 mx-1 ml-sm-4 ml-md-4 p-0" @click="show" style="margin: 5px; border-style: outset; width: 10rem; height: 9rem;">
-        <div class="card-body p-0 m-0">
-          <img class="item-img rounded-top p-0 m-0" :src="item.url_img">
-        </div>
-        <div class="card-footer px-0 pt-1 m-0 border-none">
-          <h6 class="card-title">{{ item.name }}</h6>
-        </div>
+<template>
+  <div :class="item.id">
+    <div class="item-card card col-12 mx-1 ml-sm-4 ml-md-4 p-0" @click="show" style="margin: 5px; border-style: outset; width: 10rem; height: 9rem;">
+      <div class="card-body p-0 m-0">
+        <img class="item-img rounded-top p-0 m-0" :src="item.url_img">
       </div>
+      <div class="card-footer px-0 pt-1 m-0 border-none">
+        <h6 class="card-title">{{ item.name }}</h6>
+      </div>
+    </div>
       <b-modal :ref="item.id">
         <div slot="modal-header" class="w-100">
           <h4 class="modal-title float-left">{{ item.name }}</h4>
@@ -84,6 +83,7 @@ h2 {
   display: inline-block;
 }
 </style>
+<<<<<<< HEAD
 =======
   <template>
     <div :class="item.id">
@@ -170,3 +170,5 @@ h2 {
 }
 </style>
 >>>>>>> ea7a79ed159fdf9b19a7a831385d838063f372db
+=======
+>>>>>>> 1301ccb9bccf0e491d376112ff4623149efab0cb

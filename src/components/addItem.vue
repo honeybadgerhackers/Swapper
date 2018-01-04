@@ -1,4 +1,8 @@
+<<<<<<< HEAD
   <template>
+=======
+<template>
+>>>>>>> 1301ccb9bccf0e491d376112ff4623149efab0cb
   <div class="addItem">
       <b-button @click="showModal" class="btn btn-lg btn-test float-left">Add New Item</b-button>
       <b-modal ref="addItemModal" class="mt-10">

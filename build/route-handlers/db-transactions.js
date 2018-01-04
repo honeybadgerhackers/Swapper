@@ -43,8 +43,7 @@ const getSeenItems = (userId, itemArray) =>
           return desiredItem;
         }
         return offeredItem;
-      }),
-    )
+      }))
     .catch(err =>
       console.error(err));
 

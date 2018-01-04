@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 1301ccb9bccf0e491d376112ff4623149efab0cb
 <template>
   <div>
     <nav class="navbar">
@@ -147,6 +150,7 @@ li {
 }
 
 </style>
+<<<<<<< HEAD
 =======
 <template>
   <div>
@@ -297,3 +301,5 @@ li {
 
 </style>
 >>>>>>> ea7a79ed159fdf9b19a7a831385d838063f372db
+=======
+>>>>>>> 1301ccb9bccf0e491d376112ff4623149efab0cb
