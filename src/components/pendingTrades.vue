@@ -29,7 +29,7 @@
       <div style="text-align: left;">
         <h5>Description: {{acceptedTrade.description}}</h5>
         <h5>Please contact: {{acceptedTrade.name}}</h5>
-        <h5>At: {{acceptedTrade.email}}</h5>
+        <h5 > At:<a href="/userProfile" @click="email" > {{acceptedTrade.email}}</a></h5>
       </div>
     </b-modal>
   </div>
@@ -68,6 +68,9 @@ export default {
           this.$refs.tradeInfo.show();
         })
         .catch(err => console.log(err));
+    },
+    email() {
+      axios.post('/giveEmail', { email: this.acceptedTrade.id });
     },
     show() {
       this.$refs.acceptedTrades.show();
