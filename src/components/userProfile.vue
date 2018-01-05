@@ -6,7 +6,9 @@
           <div class="col-5">
             <img src="../assets/logo-white.png" class="float-left" style="width: 120px;">
           </div>
+          
          <div class="col-2">
+           
             <div style="width: 7em;">
               <button class="btn btn-test btn-block float-right" @click="mainMenu">Swap!</button>
             </div>
@@ -24,22 +26,67 @@
         </div>
       </div>
     </nav>
+
+
+
+
     <div class="container main-container">
       <div class="card inner-container p-2" style="min-height: 10em;">
-        <div class="float-right" style="height: 3rem;"></div>
-        <add-item v-bind="$props" v-on:new-item="newItem"></add-item>
+        <div ></div>
+        <h1 id='swapperreviews'>{{email}}</h1>
         <div class="card pl-3 my-1 w-100 item-box">
+          
           <div class="container">
-            <div class="row">
-              <item-view v-for="(item,index) in profileItems" :item='item' :key='index' v-on:deleted-item="getUserItems"></item-view>
+            <div >
+              
+<h3 id='swapperreviews'>Swappr Reviews</h3>
+<div  v-for="(rev,index) in reviews" :key='index'>
+            <div class='reviews'>
+            <div id='rating' >
+              Rating: 
+              {{rev.rating}}
             </div>
+            <div id='review'>
+              {{rev.review}}
+              </div>
+              </div>
+            </div>
+   
+   
 
+   <div class="container pb-cmnt-container">
+      <b-dropdown  id="ddown1" text="Rate this Swappr" class="m-md-2">
+    <b-dropdown-item @click='newRating(5)'>5</b-dropdown-item>
+    <b-dropdown-item @click='newRating(4)'>4</b-dropdown-item>
+    <b-dropdown-item @click='newRating(3)'>3</b-dropdown-item>
+    <b-dropdown-item @click='newRating(2)'>2</b-dropdown-item>
+    <b-dropdown-item @click='newRating(1)'>1</b-dropdown-item>
+  </b-dropdown>
+    <div class="row">
+        <div class="col-md-12 col-md-offset-3">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <textarea v-model='review' placeholder="Write your comment here!" class="pb-cmnt-textarea"></textarea>
+                    <form class="form-inline">
+                        <button class="btn  pull-right" type="button" @click="postReview">Review</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
           </div>
         </div>
       </div>
     </div>
+     
+   
+   
+   
+   
     <nav class="navbar" style="position: absolute; bottom: 0; height: 3em;">
-      <div class="nav-contents container">
+      <div class="nav-contents container"> 
         <h6 class="created-by pt-1">Created by HoneyBadgerHackers</h6>
       </div>
     </nav>
@@ -50,23 +97,64 @@
 import axios from 'axios';
 
 export default {
-  name: 'profile',
+  name: 'userProfile',
   props: ['auth', 'authentication', 'userId'],
   data() {
     return {
       name: '',
+      email: '',
+      review: '',
+      id: '',
+      rating: '',
       description: '',
       tradeOffers: [],
       profileItems: [],
+      reviews: [],
       acceptedTrade: {
         traderName: '',
         traderEmail: '',
       },
     };
   },
+  created() {
+    axios.get('/email')
+        .then((email) => {
+          this.id = email.data.id;
+          axios.post('/email', { body: this.id })
+        .then(() => {
+          axios.get(`/getEmail/${this.id}`)
+          .then((userEmail) => {
+            this.email = userEmail.data;
+            axios.get('/reviews')
+            .then((reviews) => {
+              this.reviews = reviews.data.reviews;
+            });
+          })
+          .catch(err => console.log(err));
+        });
+        })
+      .catch((err) => {
+        console.log(err, 'err');
+      });
+  },
   methods: {
-    newItem({ data: newItem }) {
-      this.profileItems.push(newItem);
+    newRating(num) {
+      console.log(this.rating, 'before');
+      this.rating = num;
+      console.log(this.rating);
+    },
+    postReview() {
+      const newReview = {
+        reviewer: this.userId,
+        reviewee: this.id,
+        review: this.review,
+        rating: this.rating,
+      };
+      axios.post('/reviews', newReview)
+      .then((reviews) => {
+        this.reviews = reviews.data.reviews;
+        this.review = '';
+      });
     },
     getUserItems() {
       const config = {

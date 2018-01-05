@@ -1,4 +1,4 @@
-  <template>
+<template>
   <div class="addItem">
       <b-button @click="showModal" class="btn btn-lg btn-test float-left">Add New Item</b-button>
       <b-modal ref="addItemModal" class="mt-10">
@@ -15,7 +15,7 @@
                   </b-dropdown>
                 </div>
                 <br>
-                <form>
+                <form enctype="multipart/form-data">
                   <div class="form-group">
                     <label for="titleArea">Item Name</label>
                     <input v-model="name" type="name" class="form-control" id="titleArea" placeholder="Enter Item Name">
@@ -26,7 +26,11 @@
                   </div>
                   <div class="form-group">
                     <label for="descriptionArea">Image URL (optional)</label>
-                    <input v-model="imageUrl" type="text" class="form-control" id="urlArea" placeholder="image URL (optional)"></input>
+                    <input v-model="imageUrl" type="text" class="form-control" id="urlArea" placeholder="image URL (optional)"/>
+                  </div>
+                  <div class="form-group">
+                    <label for="descriptionArea">Upload images (optional)</label>
+                    <input type="file" class="form-control" v-on:change="upload($event.target.files)" accept="image/*" />
                   </div>
                 </form>
             </div>
@@ -40,6 +44,7 @@
 
 <script>
 import axios from 'axios';
+import CLOUDINARY_VAR from '../assets/cloudinary.config';
 
 export default {
   name: 'addItem',
@@ -53,9 +58,33 @@ export default {
       selectedCategory: 'Categories',
       categoryId: null,
       imageUrl: '',
+      cloudinary: {
+        uploadPreset: 'x8p5gkk3',
+        cloudName: CLOUDINARY_VAR.cloud_name,
+      },
+      thumb: {
+        url: '',
+      },
+      thumbs: [],
     };
   },
   methods: {
+    upload(file) {
+      console.log(this.cloudinary);
+      const formData = new FormData();
+      formData.append('file', file[0]);
+      formData.append('upload_preset', this.cloudinary.uploadPreset);
+      formData.append('tags', 'gs-vue, gs-vue-uploaded');
+      axios.post('https://api.cloudinary.com/v1_1/legacy-swappr/image/upload', formData)
+        .then((res) => {
+          console.log(res);
+          this.imageUrl = res.data.secure_url;
+          this.thumbs.unshift({
+            url: res.data.secure_url,
+          });
+        })
+        .catch(err => console.error(err.response));
+    },
     showModal() {
       this.$refs.addItemModal.show();
     },
@@ -63,13 +92,28 @@ export default {
       this.$refs.addItemModal.hide();
     },
     addItem() {
+      let newImage;
+      console.log(this.thumbs);
+      // this is where i could take in this.imageUrl, and ensure that url_img is a cloudinary url
+      // axios.post to route setup to handle image upload, come back with image url,
+      // in my .then have the rest of this code.
+      if (this.imageUrl.length) {
+        newImage = this.imageUrl;
+      } else {
+        newImage = this.categories[this.categoryId - 1].url_img;
+      }
       if (this.name.length !== 0 && this.description.length !== 0 && this.categoryId !== null) {
+        if (this.imageUrl.length) {
+          newImage = this.imageUrl;
+        } else {
+          newImage = `static/${this.categories[this.categoryId - 1].url_img}`;
+        }
         const config = {
           name: this.name,
           description: this.description,
           id_user: this.userId,
           id_category: this.categoryId,
-          url_img: this.imageUrl.length ? this.imageUrl : null,
+          url_img: newImage,
         };
         this.hideModal();
         axios.post('/items', config)
@@ -83,6 +127,16 @@ export default {
           })
           .catch(err => console.error(err));
       }
+            // if (this.imageUrl !== null) {
+      //   // will have to include
+      //   const image = {
+      //     img: this.imageUrl,
+      //   };
+      //   axios.post('/cloud', image)
+      //   .then((photo) => {
+      //     console.log(photo);
+      //   });
+      // }
     },
     getCategories() {
       axios.get('/categories')
