@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Review = sequelize.define('Review', {
     comment: DataTypes.STRING,
-    rating: DataTypes.INTERGER,
+    rating: DataTypes.INTEGER,
   });
   Review.associate = (models) => {
     Review.belongsTo(models.User, {
