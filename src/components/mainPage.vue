@@ -1,30 +1,32 @@
   <template>
-  <div>
+  <div style="overflow: overlay; max-height: 100%;">
+  <!-- <div> -->
     <nav class="navbar">
       <div class="nav-contents container">
         <div class="row w-100">
-          <div class="col-5">
+          <div class="col-12 col-sm-3 col-md-5">
             <img src="../assets/logo-white.png" class="float-left" style="width: 120px;">
           </div>
-          <div class="col-2">
-            <div style="width: 7em;">
-              <button class="btn btn-test btn-block float-right" @click="profilePage">Profile View</button>
+          <div class="col-12 col-sm-9 col-md-7 px-0 nav-buttons" align="right" nowrap>
+            <div style="float: right;">
+              <button class="btn btn-test signout" @click="auth.logout">Sign Out</button>
             </div>
-          </div>
-          <div class="col-3 px-0">
-            <span class="fa-stack fa-5x has-badge ml-auto" :data-count="tradeOffers.length">
-              <button class="btn btn-test ml-auto pending-btn float-right" @click="tradeView">Pending Trades</button>
-              <pending-trades ref="pendingTrades" v-bind="$props" :tradeOffers='tradeOffers'></pending-trades>
-            </span>
-          </div>
-          <div class="col-2">
-            <button class="btn btn-test signout float-right" @click="auth.logout">Sign Out</button>
-            </button>
+            <div style="float: right;">
+              <div class="col-3 px-0">
+                <span class="fa-stack fa-5x has-badge" :data-count="tradeOffers.length">
+                  <button class="btn btn-test pending-btn" @click="tradeView">Pending Trades</button>
+                  <pending-trades ref="pendingTrades" v-bind="$props" :tradeOffers='tradeOffers'></pending-trades>
+                </span>
+              </div>
+            </div>
+            <div style="float: right; width: 7em;">
+              <button class="btn btn-test btn-block" @click="profilePage">Profile</button>
+            </div>
           </div>
         </div>
       </div>
     </nav>
-    <div class="container main-container">
+    <div class="container main-container px-sm-0 mx-auto">
         <b-modal ref="itemModal" :class="'item-modal-view'">
           <div slot="modal-header" class="w-100">
             <button class="close float-right" @click="hide">&times;</button>
@@ -32,18 +34,21 @@
           </div>
           <b-form @submit="acceptTradeItem">
           <div slot="modal-body" class="container-fluid item-offers">
-              <div v-for="(item,index) in profileItems" :key='index' class="card m-1 w-100" style="border-style: outset; height: 5rem;">
+              <div v-for="(item,index) in profileItems" :key='index' class="card m-1 w-100" style="border-style: outset; height: 6.5rem;">
                 <h5 class="card-title text-left m-1">{{item.name}}</h5>
                 <div class="row">
+                  <div class="col-2">
+                    <img class="item-img rounded ml-1" :src="item.url_img">
+                  </div>
                   <div class="col">
-                    <p class="text-left ml-1" style="height: 3rem; overflow: hidden;">{{item.description}}
+                    <p class="text-left ml-1" style="height: 5rem; overflow: hidden;">{{item.description}}
                     </p>
                   </div>
                   <div class="col-3 mr-2">
                     <b-form-checkbox v-model="offeredItems" :id="`${item.id}`" :value="item.id">Offer?</b-form-checkbox>
                   </div>
                 </div>
-              </div>          
+              </div>
           </div>
             </b-form>
             <div slot="modal-footer" class="w-100">
@@ -51,16 +56,14 @@
               <b-button @click="acceptTradeItem" type="reset" variant="primary" class="btn btn-primary float-right">Offer Items</b-button>
             </div>
         </b-modal>
-        <div class="card inner-container p-2">
-            <div style="height: 3rem;"></div>
-            <div class="container-fluid">          
+        <div class="inner-container p-1 p-sm-2 m-0">
+            <div class="p-4 p-sm-4" style="max-height: 3rem;"></div>
+            <div class="container-fluid">
               <div class="row">
-                <div class="col-12 pb-3" style="min-height: 14rem;">
-                  <div class="item-card card px-0 w-100 h-100" style="border-style: outset;">
-                    <div class="card-block px-0">
-                      <img v-b-popover.hover.bottom="currentTradeItem.description" :title="currentTradeItem.name" class="trade-photo rounded" v-bind:src="categoryPic"/>
+                <div class="col-12 px-0 px-sm-2 pb-3">
+                  <div class="item-card card px-0">
+                      <img v-b-popover.hover.bottom="currentTradeItem.description" :title="currentTradeItem.name" class="img-fluid rounded m-0" v-bind:src="categoryPic"/>
                       <h2 class="card-title">{{currentTradeItem.name}}</h2>
-                    </div>
                   </div>
                 </div>
                 <div class="col order-2 my-1 align-self-center">
@@ -73,16 +76,12 @@
             </div>
         </div>
     </div>
-    <nav class="navbar" style="position: absolute; bottom: 0; height: 3em;">
-      <div class="nav-contents container">
-        <h6 class="created-by pt-1">Created by HoneyBadgerHackers</h6>
-      </div>
-    </nav>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import { SERVER_URI } from '../constants';
 
 export default {
   name: 'mainPage',
@@ -103,7 +102,7 @@ export default {
           id_user: this.userId,
         },
       };
-      return axios.get('/items', config)
+      return axios.get(`${SERVER_URI}/items`, config)
       .then(({ data: userItems }) => {
         this.profileItems = userItems;
       })
@@ -119,7 +118,7 @@ export default {
           items: this.profileItems.map(item => item.id),
         },
       };
-      axios.get('/users', config)
+      axios.get(`${SERVER_URI}/users`, config)
         .then((items) => {
           const sorted = items.data.map((offer) => {
             if (offer.id_user.toString() === this.userId) {
@@ -137,7 +136,7 @@ export default {
           items: this.profileItems.map(item => item.id),
         },
       };
-      axios.get('/transactions', config)
+      axios.get(`${SERVER_URI}/transactions`, config)
       .then(({ data: tradeItem }) => {
         if (typeof tradeItem === 'string') {
           const noItemResponse = {
@@ -187,7 +186,7 @@ export default {
           accepted: false,
         },
       ] };
-      axios.post('/transactions', config)
+      axios.post(`${SERVER_URI}/transactions`, config)
       .then(this.getTradeItem)
       .catch((error) => {
         console.error(error);
@@ -209,7 +208,7 @@ export default {
         return config;
       });
       const config = { data: userItemsArray };
-      axios.post('/transactions', config)
+      axios.post(`${SERVER_URI}/transactions`, config)
       .then(() => {
         this.offeredItems = [];
         this.getTradeItem();
@@ -250,9 +249,9 @@ h2 {
   overflow-y: scroll;
 }
 
-.trade-photo {
-  width: 36.7rem;
-  height: 27rem;
+.item-img {
+  height: 4rem;
+  width: 4.3rem;
   object-fit: cover;
 }
 

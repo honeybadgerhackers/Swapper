@@ -1,32 +1,33 @@
 <template>
-  <div>
+  <div style="overflow: hidden; max-height: 100%;">
     <nav class="navbar">
       <div class="nav-contents container">
         <div class="row w-100">
-          <div class="col-5">
+          <div class="col-12 col-sm-3 col-md-5">
             <img src="../assets/logo-white.png" class="float-left" style="width: 120px;">
           </div>
-         <div class="col-2">
-            <div style="width: 7em;">
-              <button class="btn btn-test btn-block float-right" @click="mainMenu">Swap!</button>
+          <div class="col-12 col-sm-9 col-md-7 px-0" align="right">
+            <div style="float: right;">
+              <button class="btn btn-test signout" @click="auth.logout">Sign Out</button>
             </div>
-          </div>
-          <div class="col-3 px-0">
-            <span class="fa-stack fa-5x has-badge ml-auto" :data-count="tradeOffers.length">
-              <button class="btn btn-test ml-auto pending-btn float-right" @click="tradeView">Pending Trades</button>
-              <pending-trades ref="pendingTrades" v-bind="$props" :tradeOffers='tradeOffers'></pending-trades>
-            </span>
-          </div>
-          <div class="col-2">
-            <button class="btn btn-test signout float-right" @click="auth.logout">Sign Out</button>
-            </button>
+            <div style="float: right;">
+              <div class="col-3 px-0">
+                <span class="fa-stack fa-5x has-badge" :data-count="tradeOffers.length">
+                  <button class="btn btn-test pending-btn" @click="tradeView">Pending Trades</button>
+                  <pending-trades ref="pendingTrades" v-bind="$props" :tradeOffers='tradeOffers'></pending-trades>
+                </span>
+              </div>
+            </div>
+            <div style="float: right; width: 7em;">
+              <button class="btn btn-test btn-block" @click="mainMenu">Swap!</button>
+            </div>
           </div>
         </div>
       </div>
     </nav>
     <div class="container main-container">
       <div class="card inner-container p-2" style="min-height: 10em;">
-        <div class="float-right" style="height: 3rem;"></div>
+        <div class="float-right" style="max-height: 3rem;"></div>
         <add-item v-bind="$props" v-on:new-item="newItem"></add-item>
         <div class="card pl-3 my-1 w-100 item-box">
           <div class="container">
@@ -47,6 +48,7 @@
 
 <script>
 import axios from 'axios';
+import { SERVER_URI } from '../constants';
 
 export default {
   name: 'profile',
@@ -73,7 +75,7 @@ export default {
           id_user: this.userId,
         },
       };
-      return axios.get('/items', config)
+      return axios.get(`${SERVER_URI}/items`, config)
       .then(({ data: userItems }) => {
         this.profileItems = userItems;
       })
@@ -89,7 +91,7 @@ export default {
           items: this.profileItems.map(item => item.id),
         },
       };
-      axios.get('/users', config)
+      axios.get(`${SERVER_URI}/users`, config)
         .then((items) => {
           const sorted = items.data.map((offer) => {
             if (offer.id_user.toString() === this.userId) {
@@ -109,7 +111,7 @@ export default {
           id_item: this.profileItems[index].id,
         },
       };
-      axios.delete('/items', config)
+      axios.delete(`${SERVER_URI}/items`, config)
         .then(this.getUserItems)
           .then(this.getTradeOffers)
         .catch(err => console.error(err));
