@@ -7,52 +7,105 @@
   }
   .inner-container {
     width: 40rem;
-    height: 87vh;
+    height: 90vh;
   }
   .item-box {
-    height: 74vh;
+    /* height: 5rem; */
+  }
+
+  .trade-photo {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
   }
 }
 
-/* @media (max-width: 768px) {
+@media (max-width: 768px) {
+  .inner-container {
+    /* width: 40rem; */
+    height: 88vh;
+  }
+  .main-container {
+    /* margin-left: 40px; */
+    /* padding: 0px; */
+    /* width: 28rem; */
+  }
+  .nav-contents {
 
-} */
+    padding-left: 0px;
+    padding-right: 0px;
+    width: 50rem;
+  }
+
+  .trade-photo {
+    max-width: 100%;
+    max-height: auto;
+    object-fit: cover;
+  }
+}
 
 @media (max-width: 576px) {
   .main-container {
-    width: 28rem;
+    padding: 0px;
+    margin: 0px;
+    /* width: 28rem; */
   }
   .inner-container {
-    width: 26rem;
-    height: 78vh;
+    /* width: 26rem; */
+    height: 82vh;
   }
+
+  .nav-contents {
+    width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
   .item-box {
-    width: 24rem;
-    height: 65vh;
+    width: 26rem;
+    /* height: 74vh; */
+  }
+
+  .trade-photo {
+    margin: 0px;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .nav-buttons {
+    min-width: 350px;
   }
 
 }
 
 html {
   margin: auto;
+  height: 100%;
 }
 
 body {
-/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#52658f+3,ffffff+49,ffffff+53,52658f+97&0.59+1,0.2+50,0.59+100 */
-background: -moz-linear-gradient(left, rgba(82,101,143,0.59) 1%, rgba(82,101,143,0.57) 3%, rgba(255,255,255,0.21) 49%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.22) 53%, rgba(82,101,143,0.57) 97%, rgba(82,101,143,0.59) 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(left, rgba(82,101,143,0.59) 1%,rgba(82,101,143,0.57) 3%,rgba(255,255,255,0.21) 49%,rgba(255,255,255,0.2) 50%,rgba(255,255,255,0.22) 53%,rgba(82,101,143,0.57) 97%,rgba(82,101,143,0.59) 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(to right, rgba(82,101,143,0.59) 1%,rgba(82,101,143,0.57) 3%,rgba(255,255,255,0.21) 49%,rgba(255,255,255,0.2) 50%,rgba(255,255,255,0.22) 53%,rgba(82,101,143,0.57) 97%,rgba(82,101,143,0.59) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9652658f', endColorstr='#9652658f',GradientType=1 ); /* IE6-9 */
+  height: 100%;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#52658f+3,ffffff+49,ffffff+53,52658f+97&0.59+1,0.2+50,0.59+100 */
+  background: -moz-linear-gradient(left, rgba(82,101,143,0.59) 1%, rgba(82,101,143,0.57) 3%, rgba(255,255,255,0.21) 49%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.22) 53%, rgba(82,101,143,0.57) 97%, rgba(82,101,143,0.59) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(left, rgba(82,101,143,0.59) 1%,rgba(82,101,143,0.57) 3%,rgba(255,255,255,0.21) 49%,rgba(255,255,255,0.2) 50%,rgba(255,255,255,0.22) 53%,rgba(82,101,143,0.57) 97%,rgba(82,101,143,0.59) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right, rgba(82,101,143,0.59) 1%,rgba(82,101,143,0.57) 3%,rgba(255,255,255,0.21) 49%,rgba(255,255,255,0.2) 50%,rgba(255,255,255,0.22) 53%,rgba(82,101,143,0.57) 97%,rgba(82,101,143,0.59) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9652658f', endColorstr='#9652658f',GradientType=1 ); /* IE6-9 */
   background-color: #52658f;
 }
 
 body.login {
+  height: 100%;
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#52658f+0,ffffff+49,ffffff+53,52658f+100&0.05+0,0.05+2,0.2+50,0.05+100 */
-background: -moz-linear-gradient(left, rgba(82,101,143,0.05) 0%, rgba(89,107,148,0.05) 2%, rgba(255,255,255,0.2) 49%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.19) 53%, rgba(82,101,143,0.05) 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(left, rgba(82,101,143,0.05) 0%,rgba(89,107,148,0.05) 2%,rgba(255,255,255,0.2) 49%,rgba(255,255,255,0.2) 50%,rgba(255,255,255,0.19) 53%,rgba(82,101,143,0.05) 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(to right, rgba(82,101,143,0.05) 0%,rgba(89,107,148,0.05) 2%,rgba(255,255,255,0.2) 49%,rgba(255,255,255,0.2) 50%,rgba(255,255,255,0.19) 53%,rgba(82,101,143,0.05) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0d52658f', endColorstr='#0d52658f',GradientType=1 ); /* IE6-9 */
-  background-color: white;
+  background: -moz-linear-gradient(left, rgba(82,101,143,0.05) 0%, rgba(89,107,148,0.05) 2%, rgba(255,255,255,0.1) 49%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.09) 53%, rgba(82,101,143,0.05) 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(left, rgba(82,101,143,0.05) 0%,rgba(89,107,148,0.05) 2%,rgba(255,255,255,0.1) 49%,rgba(255,255,255,0.1) 50%,rgba(255,255,255,0.09) 53%,rgba(82,101,143,0.05) 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right, rgba(82,101,143,0.05) 0%,rgba(89,107,148,0.05) 2%,rgba(255,255,255,0.1) 49%,rgba(255,255,255,0.1) 50%,rgba(255,255,255,0.09) 53%,rgba(82,101,143,0.05) 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0d52658f', endColorstr='#0d52658f',GradientType=1 );
+  /* IE6-9 */
+  background-color: black;
 }
 
 nav {
@@ -60,6 +113,11 @@ nav {
   margin: 0 0 0 0;
   width: 100%;
   overflow: hidden;
+}
+
+#app {
+  height: 100%;
+  position: relative;
 }
 
 .item-offers {
@@ -100,6 +158,8 @@ nav {
 
 .pending-btn {
   float: right;
+  margin-right: 0px;
+  margin-left: 2px;
 }
 
 .inner-container {
@@ -123,10 +183,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#05bddba4', e
   background-color: #ffffff;
 }
 
-.fa-stack[data-count]:after{
+.farm-stack[data-count]:after{
   position:absolute;
   top:-5%;
-  right:-1%;
+  right:-10%;
   content: attr(data-count);
   font-size:70%;
   padding:.6em;
